@@ -7,6 +7,7 @@ Waypoint navigation for ROS2
 ```shell
 $ cd ~/ros2_ws/src
 $ git clone https://github.com/MERLIN2-ARCH/waypoint_navigation.git
+$ git clone https://github.com/uleroboticsgroup/simple_node.git 
 $ cd ~/ros2_ws
 $ colcon build
 ```
