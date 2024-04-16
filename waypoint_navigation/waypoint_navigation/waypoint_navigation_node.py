@@ -20,7 +20,7 @@ from simple_node import Node
 class WaypointNavigationNode(Node):
     """ Waypoint Navigation Node """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("waypoint_navigation_node")
 
         self.__wp_dict = {}
@@ -46,11 +46,12 @@ class WaypointNavigationNode(Node):
         # actions
         self.__action_client = self.create_action_client(
             NavigateToPose, nav_action)
-        self.__action_server = self.create_action_server(NavigateToWp,
-                                                         "navigate_to_wp",
-                                                         execute_callback=self.__execute_server,
-                                                         cancel_callback=self.__cancel_callback
-                                                         )
+        self.__action_server = self.create_action_server(
+            NavigateToWp,
+            "navigate_to_wp",
+            execute_callback=self.__execute_server,
+            cancel_callback=self.__cancel_callback
+        )
 
         # services
         self.create_service(
@@ -85,9 +86,11 @@ class WaypointNavigationNode(Node):
             self.__wp_dict[waypoints[i]].orientation.w = float(
                 waypoints[i + 4])
 
-    def __get_wp(self,
-                 req: GetWp.Request,
-                 res: GetWp.Response) -> GetWp.Response:
+    def __get_wp(
+        self,
+        req: GetWp.Request,
+        res: GetWp.Response
+    ) -> GetWp.Response:
         """ srv callback to get a point
 
         Args:
@@ -105,9 +108,11 @@ class WaypointNavigationNode(Node):
 
         return res
 
-    def __get_wps(self,
-                  req: GetWps.Request,
-                  res: GetWps.Response) -> GetWps.Response:
+    def __get_wps(
+        self,
+        req: GetWps.Request,
+        res: GetWps.Response
+    ) -> GetWps.Response:
         """ srv callback to get all points
 
         Args:
@@ -126,9 +131,11 @@ class WaypointNavigationNode(Node):
 
         return res
 
-    def __add_wp(self,
-                 req: AddWp.Request,
-                 res: AddWp.Response) -> AddWp.Response:
+    def __add_wp(
+        self,
+        req: AddWp.Request,
+        res: AddWp.Response
+    ) -> AddWp.Response:
         """ srv callback to add new points
 
         Args:
@@ -150,7 +157,7 @@ class WaypointNavigationNode(Node):
 
         return res
 
-    def __cancel_callback(self):
+    def __cancel_callback(self) -> None:
         """ cancel action server """
 
         self.__action_client.cancel_goal()
@@ -193,13 +200,10 @@ class WaypointNavigationNode(Node):
         return result
 
 
-def main(args=None):
-    rclpy.init(args=args)
-
+def main():
+    rclpy.init()
     node = WaypointNavigationNode()
-
     node.join_spin()
-
     rclpy.shutdown()
 
 
