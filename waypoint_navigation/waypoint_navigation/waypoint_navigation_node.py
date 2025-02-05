@@ -1,4 +1,4 @@
-""" Waypoint Navigation """
+"""Waypoint Navigation"""
 
 from typing import List
 import rclpy
